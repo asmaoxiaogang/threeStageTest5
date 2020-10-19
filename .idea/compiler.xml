@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ssm-video-service" />
+        <module name="ssm-video-web" />
+        <module name="ssm-video-dao" />
+        <module name="ssm-video-pojo" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ssm-video-dao" target="1.8" />
+      <module name="ssm-video-parent" target="1.8" />
+      <module name="ssm-video-pojo" target="1.8" />
+      <module name="ssm-video-service" target="1.8" />
+      <module name="ssm-video-web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
