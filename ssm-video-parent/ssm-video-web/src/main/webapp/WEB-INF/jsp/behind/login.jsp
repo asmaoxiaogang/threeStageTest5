@@ -23,14 +23,22 @@
         function validateLogin() {
             var data = $("form").serialize();
             $.post(
+                <%--"${pageContext.request.contextPath}/admin/login", data, function (data) {--%>
                 "${pageContext.request.contextPath}/admin/login", data, function (data) {
                     if (data == 'success') {
-                        //alert("登录成功");
+                        alert("登录成功");
                         location.href = "${pageContext.request.contextPath}/video/list";
                     } else {
-                        //alert("用户民密码错误");
+                        // alert("用户民密码错误");
+                        <%--alert(${transferData});--%>
                         $("#msg").text("用户名密码错误，请检查后输入");
+                        <%--location.href = "${pageContext.request.contextPath}/video/list";--%>
                     }
+                    //
+                    // if(data != 'success'){
+                    //     $("#msg").text("用户名密码错误，请检查后输入");
+                    // }
+
                 }
             );
 

@@ -22,4 +22,6 @@ public class Video {
 
     private String detail;
 
+    private String speakerName;
+
 }

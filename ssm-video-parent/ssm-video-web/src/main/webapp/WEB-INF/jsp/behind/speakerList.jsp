@@ -1,6 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="p" uri="http://yanzhenwei.com/common/" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +34,7 @@
                     'primary': true,
                     'callback': function () {
                         var param = {"id": id};
-                        $.post("speakerDel", param, function (data) {
+                        $.post("${pageContext.request.contextPath}/speaker/speakerDel", param, function (data) {
                             if (data == 'success') {
                                 Confirm.show('温馨提示：', '删除成功');
                                 $(Obj).parent().parent().remove();
@@ -74,7 +73,7 @@
 
             </ul>
             <p class="navbar-text navbar-right">
-                <span>${sessionScope.userName}</span> <i class="glyphicon glyphicon-log-in"
+                <span style="color: red">${sessionScope.username}</span> <i class="glyphicon glyphicon-log-in"
                                                          aria-hidden="true"></i>&nbsp;&nbsp;<a
                     href="${pageContext.request.contextPath}/admin/exit"
                     class="navbar-link">退出</a>
@@ -119,14 +118,15 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${page.rows}" var="speaker" varStatus="status">
+<%--        <c:forEach items="${page.rows}" var="speaker" varStatus="status">--%>
+        <c:forEach items="${speakerList}" var="speaker" varStatus="status">
             <tr>
                 <td>${status.index+1}</td>
                 <td>${speaker.speakerName}</td>
 
                 <td>${speaker.speakerJob}</td>
                 <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${speaker.speakerDesc}</td>
-                <td><a href="${pageContext.request.contextPath}/speaker/edit?id=${speaker.id}"><span
+                <td><a href="${pageContext.request.contextPath}/speaker/addSpeaker?id=${speaker.id}"><span
                         class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
                 <td><a href="#" onclick="return delSpeakerById(this,'${speaker.id}','${speaker.speakerName}')"><span
                         class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
@@ -142,6 +142,26 @@
     <div class="navbar-right" style="padding-right: 17px">
         <p:page url="${pageContext.request.contextPath}/speaker/showSpeakerList"></p:page>
     </div>
+</div>
+
+<div align="center">
+    <c:if test="${pageInfo.size > 0}">
+        <nav>
+            <a href="?page=${1}">首页 |</a>
+            <c:if test="${pageInfo.pageNum!= 1 }">
+                <a href="?page=${pageInfo.pageNum - 1}"> 上一页 | </a>
+            </c:if>
+            <c:if test="${pageInfo.pageNum < pageInfo.pages }">
+                <a href="?page=${pageInfo.pageNum + 1}"> 下一页 | </a>
+            </c:if>
+                <%--            <a href="?page=${pageInfo.size}"> 尾页 | </a>--%>
+            <a href="?page=${pageInfo.pages}"> 尾页 | </a>
+            <a> 共 ${pageInfo.total } 条记录 |</a>
+            <a> 当前第 ${pageInfo.pageNum} 页 |</a>
+
+            <a> 共 ${pageInfo.pages} 页</a>
+        </nav>
+    </c:if>
 </div>
 </body>
 

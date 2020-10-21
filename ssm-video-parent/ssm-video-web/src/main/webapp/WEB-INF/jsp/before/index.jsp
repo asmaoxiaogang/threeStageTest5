@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/css.css">
     <link rel="icon" href="favicon.png" type="image/png"/>
     <title>在线公开课-Y先生教育|java|大数据|HTML5|python|UI|PHP视频教程</title>
-    <script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/gVerify.js"></script>
+    <script type="application/javascript" src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
+    <script type="application/javascript" src="${pageContext.request.contextPath}/js/gVerify.js"></script>
     <script type="text/javascript">
 
         $(function () {
@@ -292,5 +292,5 @@
 
 </body>
 
-<script src="${pageContext.request.contextPath}/js/index.js"></script>
+<script type="application/javascript" src="${pageContext.request.contextPath}/js/index.js"></script>
 </html>

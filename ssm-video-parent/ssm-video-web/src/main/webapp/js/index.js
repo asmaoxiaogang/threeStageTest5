@@ -208,10 +208,11 @@ function commitLogin() {
     var password = $("#loginPassword").val();
     if (null != email && email != "" && null != password && password != "") {
         var params = $("#loginForm").serialize();
-        // alert(params);
+        // alert(getRootPath() + "/user/loginUser")
         // post要小写
-        $.post('/' + getRootPath() + "/user/loginUser", params, function (data) {
-            // alert(data);
+        // $.post('/' + getRootPath() + "/user/loginUser", params, function (data) {
+        $.post(getRootPath() + "/user/loginUser", params, function (data) {
+            // alert(data)
             if (data == 'success') {
 
                 //登录框消失

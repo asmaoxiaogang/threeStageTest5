@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.user.dao.UserSubjectDao">
+    <resultMap id="SubjectMap" type="com.qf.pojo.Subject">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="subject_name" jdbcType="VARCHAR" property="subjectName" />
+    </resultMap>
+    <sql id="Base_Column_List_Subject">
+    id, subject_name
+  </sql>
+
+    <select id="selectAll" resultMap="SubjectMap">
+        select <include refid="Base_Column_List_Subject"></include>
+        from video.subject
+    </select>
+</mapper>

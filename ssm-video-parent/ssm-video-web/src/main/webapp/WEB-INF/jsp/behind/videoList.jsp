@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="p" uri="http://yanzhenwei.com/common/" %>
+<%--<%@ taglib prefix="p" uri="http://yanzhenwei.com/common/" %>--%>
 <!-- 分页插件 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -159,7 +159,6 @@
 </head>
 <body>
 
-
 <nav class="navbar-inverse">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -173,12 +172,12 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="${pageContext.request.contextPath}/video/list">视频管理</a></li>
                 <li><a href="${pageContext.request.contextPath}/speaker/showSpeakerList">主讲人管理</a></li>
-                <li><a href="${pageContext.request.contextPath}/showCourseList">课程管理</a></li>
+                <li><a href="${pageContext.request.contextPath}/course/showCourseList">课程管理</a></li>
 
 
             </ul>
             <p class="navbar-text navbar-right">
-                <span>${sessionScope.userName}</span> <i class="glyphicon glyphicon-log-in"
+                <span>${sessionScope.username}</span> <i class="glyphicon glyphicon-log-in"
                                                          aria-hidden="true"></i>&nbsp;&nbsp;<a
                     href="${pageContext.request.contextPath}/admin/exit"
                     class="navbar-link">退出</a>
@@ -215,11 +214,14 @@
         <div class="col-md-6">
             <!-- 查询相关组件 -->
             <form class="navbar-form navbar-right" action="${pageContext.request.contextPath}/video/list" method="post">
+
+
                 <input type="text" name="title" class="form-control" placeholder="标题" value="${queryVo.title}">
                 <div class="btn-group">
                     <button type="button" id="speakerName"
                             class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
+
                         <c:forEach items="${speakerList}" var="speaker">
                             <c:if test="${speaker.id == queryVo.speakerId}">
                                 ${speaker.speakerName}
@@ -239,6 +241,7 @@
                             </li>
                         </c:forEach>
                     </ul>
+
                     <input type="hidden" name="speakerId" id="speakerId" value="${queryVo.speakerId}"/>
                 </div>
                 <div class="btn-group">
@@ -264,6 +267,8 @@
                             </li>
                         </c:forEach>
                     </ul>
+
+
                     <input type="hidden" name="courseId" id="courseId" value="${queryVo.courseId}"/>
                 </div>
                 <button type="submit" class="btn btn-info dropdown-toggle">查询</button>
@@ -298,17 +303,19 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${page.rows}" var="video" varStatus="status">
+<%--            <c:forEach items="${page.rows}" var="video" varStatus="status">--%>
+            <c:forEach items="${videoList}" var="video" varStatus="status">
                 <tr>
                     <td><input type="checkbox" name="ids" value="${video.id}"
                                onclick="selectOne(this)"/></td>
                     <td>${status.count}</td>
                     <td>${video.title}</td>
                     <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${video.detail}</td>
-                    <td>${video.speaker.speakerName}</td>
+<%--                    <td>${video.speaker.speakerName}</td>--%>
+                    <td>${video.speakerName}</td>
                     <td>${video.time}</td>
                     <td>${video.playNum}</td>
-                    <td><a href="${pageContext.request.contextPath}/video/edit?id=${video.id}"><span
+                    <td><a href="${pageContext.request.contextPath}/video/addVideo?id=${video.id}"><span
                             class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
                     <!-- js中如果使用el表达式，请用单引号包括，避免造成一些语法问题 -->
                     <td><a
@@ -324,6 +331,25 @@
 
 
     </form>
+    <div align="center">
+        <c:if test="${pageInfo.size > 0}">
+            <nav>
+                <a href="?page=${1}">首页 |</a>
+                <c:if test="${pageInfo.pageNum!= 1 }">
+                    <a href="?page=${pageInfo.pageNum - 1}"> 上一页 | </a>
+                </c:if>
+                <c:if test="${pageInfo.pageNum < pageInfo.pages }">
+                    <a href="?page=${pageInfo.pageNum + 1}"> 下一页 | </a>
+                </c:if>
+                    <%--            <a href="?page=${pageInfo.size}"> 尾页 | </a>--%>
+                <a href="?page=${pageInfo.pages}"> 尾页 | </a>
+                <a> 共 ${pageInfo.total } 条记录 |</a>
+                <a> 当前第 ${pageInfo.pageNum} 页 |</a>
+
+                <a> 共 ${pageInfo.pages} 页</a>
+            </nav>
+        </c:if>
+    </div>
 </div>
 <div class="container">
     <div class="navbar-right" style="padding-right: 17px">

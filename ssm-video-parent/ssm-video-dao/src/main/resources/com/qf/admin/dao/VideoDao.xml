@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.admin.dao.VideoDao">
+    <resultMap id="VideoMap" type="com.qf.pojo.Video">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="time" jdbcType="INTEGER" property="time" />
+        <result column="speaker_id" jdbcType="INTEGER" property="speakerId" />
+        <result column="course_id" jdbcType="INTEGER" property="courseId" />
+        <result column="video_url" jdbcType="VARCHAR" property="videoUrl" />
+        <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
+        <result column="play_num" jdbcType="INTEGER" property="playNum" />
+        <result column="speakerName" jdbcType="VARCHAR" property="speakerName"/>
+    </resultMap>
+    <resultMap extends="VideoMap" id="ResultMapWithBLOBs" type="com.qf.pojo.Video">
+        <result column="detail" jdbcType="LONGVARCHAR" property="detail" />
+    </resultMap>
+    <sql id="Video_Column_List">
+        video.id, title, time, speaker_id, course_id, video_url, image_url, play_num, speaker.speaker_name as speakerName
+  </sql>
+    <sql id="Video_Column_List_Add">
+    detail
+  </sql>
+
+    <select id="findAllVideo" resultMap="VideoMap">
+        select
+        <include refid="Video_Column_List"></include>,
+        <include refid="Video_Column_List_Add"></include>
+        from video,speaker
+        where video.speaker_id=speaker.id
+        <trim>
+            <if test="title != '' and title != null">
+                and title like concat('%' ,#{title},'%')
+            </if>
+            <if test="speakerId != '' and speakerId != null">
+                and speaker_id=#{speakerId}
+            </if>
+            <if test="courseId != '' and courseId != null">
+                and course_id=#{courseId}
+            </if>
+        </trim>
+    </select>
+
+    <insert id="saveOrUpdate" parameterType="com.qf.pojo.Video">
+    <if test="id == '' or id == null">
+        insert into video (id, title, time,
+        speaker_id, course_id, video_url,
+        image_url, play_num, detail
+        )
+        values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{time,jdbcType=INTEGER},
+        #{speakerId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{videoUrl,jdbcType=VARCHAR},
+        #{imageUrl,jdbcType=VARCHAR}, #{playNum,jdbcType=INTEGER}, #{detail,jdbcType=LONGVARCHAR}
+        )
+    </if>
+    <if test="id!=null and id!=''">
+        update video set
+            title=#{title},speaker_id=#{speakerId},
+            course_id=#{courseId},time=#{time},image_url=#{imageUrl},
+            video_url=#{videoUrl},detail=#{detail}
+            where id=#{id}
+    </if>
+
+
+  </insert>
+
+    <delete id="videoDel">
+        delete from video where id=#{id}
+    </delete>
+
+    <select id="findVideoById" resultMap="VideoMap">
+        select
+            id, title, time,
+            speaker_id, course_id, video_url,
+            image_url, play_num, detail
+        from video
+        <where>
+            <if test="id != null and id != ''">
+                id=#{id}
+            </if>
+        </where>
+
+
+    </select>
+</mapper>
