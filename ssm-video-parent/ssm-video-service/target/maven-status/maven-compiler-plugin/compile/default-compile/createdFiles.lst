@@ -1,0 +1,4 @@
+com\qf\admin\service\impl\AdminServiceImpl.class
+com\qf\user\service\impl\UserServiceImpl.class
+com\qf\user\service\UserService.class
+com\qf\admin\service\AdminService.class

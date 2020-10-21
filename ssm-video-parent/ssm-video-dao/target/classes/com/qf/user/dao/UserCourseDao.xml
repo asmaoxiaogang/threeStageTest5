@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.user.dao.UserCourseDao">
+    <resultMap id="CourseMap" type="com.qf.pojo.Course">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="course_title" jdbcType="VARCHAR" property="courseTitle" />
+        <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
+    </resultMap>
+    <resultMap extends="CourseMap" id="ResultMapWithBLOBs" type="com.qf.pojo.Course">
+        <result column="course_desc" jdbcType="LONGVARCHAR" property="courseDesc" />
+    </resultMap>
+    <sql id="Course_Column_List">
+    id, course_title, subject_id
+  </sql>
+    <sql id="Course_Column_List_Add">
+    course_desc
+  </sql>
+
+
+</mapper>

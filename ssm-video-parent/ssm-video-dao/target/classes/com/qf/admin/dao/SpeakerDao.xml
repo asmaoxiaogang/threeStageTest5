@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.admin.dao.SpeakerDao">
+    <resultMap id="SpeakerMap" type="com.qf.pojo.Speaker">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="speaker_name" jdbcType="VARCHAR" property="speakerName" />
+        <result column="speaker_job" jdbcType="VARCHAR" property="speakerJob" />
+        <result column="head_img_url" jdbcType="VARCHAR" property="headImgUrl" />
+        <result column="speaker_desc" jdbcType="LONGVARCHAR" property="speakerDesc" />
+    </resultMap>
+<!--    <resultMap extends="SpeakerMap" id="ResultMapWithBLOBs" type="com.qf.pojo.Speaker">-->
+<!--        <result column="speaker_desc" jdbcType="LONGVARCHAR" property="speakerDesc" />-->
+<!--    </resultMap>-->
+
+    <sql id="Speaker_Column_List">
+     id, speaker_name, speaker_job, head_img_url, speaker_desc
+  </sql>
+<!--    <sql id="Speaker_Column_List_Add">-->
+<!--    speaker_desc-->
+<!--  </sql>-->
+
+    <select id="findAllSpeaker" resultMap="SpeakerMap">
+        select
+        <include refid="Speaker_Column_List" />
+<!--        ,-->
+<!--        <include refid="Speaker_Column_List_Add" />-->
+        from speaker
+    </select>
+
+
+    <insert id="addSpeaker" parameterType="com.qf.pojo.Speaker">
+        <if test="id == '' or id == null">
+    insert into speaker (id, speaker_name, speaker_job,
+      head_img_url, speaker_desc)
+    values (#{id,jdbcType=INTEGER}, #{speakerName,jdbcType=VARCHAR}, #{speakerJob,jdbcType=VARCHAR},
+      #{headImgUrl,jdbcType=VARCHAR}, #{speakerDesc,jdbcType=LONGVARCHAR})
+        </if>
+        <if test="id!=null and id!=''">
+            update video.speaker set
+            speaker_name=#{speakerName},speaker_job=#{speakerJob},speaker_desc=#{speakerDesc}
+            where id=#{id}
+
+        </if>
+  </insert>
+
+    <delete id="speakerDel">
+        delete from video.speaker where id=#{id}
+    </delete>
+
+    <select id="findSpeakerById" resultMap="SpeakerMap">
+        select * from video.speaker where id=#{id}
+    </select>
+</mapper>
