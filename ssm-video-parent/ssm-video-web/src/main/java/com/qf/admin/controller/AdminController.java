@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -59,9 +60,13 @@ public class AdminController {
         return data;
     }
 
-    @RequestMapping("selectAll")
-    public ModelAndView selectAll() {
-        ModelAndView modelAndView = new ModelAndView();
-        return modelAndView;
+    @RequestMapping("exit")
+    public String exit(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        String username =(String) session.getAttribute("username");
+        System.out.println("username: " + username);
+        session.removeAttribute("username");
+//        return "redirect: /admin/loginAdminPageSkip";
+        return "redirect: /subject/selectAll";
     }
 }

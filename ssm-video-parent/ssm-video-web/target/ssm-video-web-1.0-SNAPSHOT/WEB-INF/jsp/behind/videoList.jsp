@@ -133,7 +133,6 @@
             if (deleteNum == 0) {
                 document.getElementById("checkAllId").checked = false;
             }
-
             var arr = document.getElementsByName("ids");
             if (deleteNum == arr.length) {
                 document.getElementById("checkAllId").checked = true;
@@ -306,8 +305,10 @@
 <%--            <c:forEach items="${page.rows}" var="video" varStatus="status">--%>
             <c:forEach items="${videoList}" var="video" varStatus="status">
                 <tr>
+
                     <td><input type="checkbox" name="ids" value="${video.id}"
                                onclick="selectOne(this)"/></td>
+
                     <td>${status.count}</td>
                     <td>${video.title}</td>
                     <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${video.detail}</td>

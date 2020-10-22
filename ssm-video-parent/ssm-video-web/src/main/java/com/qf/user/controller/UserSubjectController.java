@@ -19,9 +19,8 @@ public class UserSubjectController {
     @RequestMapping("selectAll")
     public String selectAll(Model model, Integer id) {
         List<Subject> subjectList = subjectService.selectAll(id);
-        System.out.println("subjectList" + subjectList);
-        model.addAttribute("subjectList", subjectList);
 
+        model.addAttribute("subjectList", subjectList);
 
         return "before/index.jsp";
     }
