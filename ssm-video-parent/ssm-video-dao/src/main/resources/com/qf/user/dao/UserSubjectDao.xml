@@ -12,5 +12,10 @@
     <select id="selectAll" resultMap="SubjectMap">
         select <include refid="Base_Column_List_Subject"></include>
         from video.subject
+        <where>
+            <if test="id!=null and id!=''">
+                id=#{id}
+            </if>
+        </where>
     </select>
 </mapper>

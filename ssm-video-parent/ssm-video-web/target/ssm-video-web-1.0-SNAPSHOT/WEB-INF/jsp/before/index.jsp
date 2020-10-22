@@ -73,7 +73,7 @@
                     <c:forEach items="${subjectList}" var="subject">
                         <li>
                             <a target="_blank"
-                               href="${pageContext.request.contextPath}/course/course/${subject.id}">${subject.subjectName}</a>
+                               href="${pageContext.request.contextPath}/course/course?id=${subject.id}">${subject.subjectName}</a>
                         </li>
                     </c:forEach>
                 </ul>

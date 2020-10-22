@@ -5,16 +5,37 @@
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="course_title" jdbcType="VARCHAR" property="courseTitle" />
         <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
-    </resultMap>
-    <resultMap extends="CourseMap" id="ResultMapWithBLOBs" type="com.qf.pojo.Course">
-        <result column="course_desc" jdbcType="LONGVARCHAR" property="courseDesc" />
+        <result column="course_desc" jdbcType="VARCHAR" property="courseDesc" />
+
+        <collection property="videoList" ofType="com.qf.pojo.Video">
+            <id column="id" jdbcType="INTEGER" property="id" />
+            <result column="title" jdbcType="VARCHAR" property="title" />
+            <result column="time" jdbcType="INTEGER" property="time" />
+            <result column="speaker_id" jdbcType="INTEGER" property="speakerId" />
+            <result column="course_id" jdbcType="INTEGER" property="courseId" />
+            <result column="video_url" jdbcType="VARCHAR" property="videoUrl" />
+            <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
+            <result column="play_num" jdbcType="INTEGER" property="playNum" />
+            <result column="detail" jdbcType="VARCHAR" property="detail" />
+        </collection>
     </resultMap>
     <sql id="Course_Column_List">
-    id, course_title, subject_id
+    course.id, course_title, subject_id, course_desc
   </sql>
-    <sql id="Course_Column_List_Add">
-    course_desc
+    <sql id="Video_Column_List">
+    video.id, title, time, speaker_id, course_id, video_url, image_url, play_num, detail
   </sql>
-
+    <select id="course" resultMap="CourseMap">
+        select
+        <include refid="Course_Column_List"></include>,
+        <include refid="Video_Column_List"></include>
+        from video.course,video.video
+        <where>
+            <if test="id!=null and id!=''">
+                subject_id=#{id}
+                and video.course_id=course.id
+            </if>
+        </where>
+    </select>
 
 </mapper>

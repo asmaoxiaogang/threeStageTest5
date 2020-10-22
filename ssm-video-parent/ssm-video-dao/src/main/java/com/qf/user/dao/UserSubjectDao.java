@@ -8,5 +8,5 @@ import java.util.List;
 @Repository
 public interface UserSubjectDao {
 
-    List<Subject> selectAll();
+    List<Subject> selectAll(Integer id);
 }

@@ -103,12 +103,18 @@ public class VideoController {
     }
 
     @RequestMapping("delBatchVideos")
-    @ResponseBody
-    public String delBatchVideos(Integer delNum) {
+    public String delBatchVideos(Integer[] ids) {
         System.out.println("come on delBatchVideos...");
-        System.out.println("delNum" + delNum);
+        for (int i = 0; i < ids.length; i++) {
+            System.out.println("videoId: " + ids[i]);
+        }
 
-        return "";
+
+        for (int i = 0; i < ids.length; i++) {
+            videoService.videoDel(ids[i]);
+        }
+
+        return "redirect: /video/list";
     }
 
 }

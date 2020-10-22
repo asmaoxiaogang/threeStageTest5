@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.user.dao.UserVideoDao">
+    <resultMap id="VideoMap" type="com.qf.pojo.Video">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="time" jdbcType="INTEGER" property="time" />
+        <result column="speaker_id" jdbcType="INTEGER" property="speakerId" />
+        <result column="course_id" jdbcType="INTEGER" property="courseId" />
+        <result column="video_url" jdbcType="VARCHAR" property="videoUrl" />
+        <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
+        <result column="play_num" jdbcType="INTEGER" property="playNum" />
+        <result column="detail" jdbcType="VARCHAR" property="detail" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, title, time, speaker_id, course_id, video_url, image_url, play_num, detail
+  </sql>
+
+
+</mapper>

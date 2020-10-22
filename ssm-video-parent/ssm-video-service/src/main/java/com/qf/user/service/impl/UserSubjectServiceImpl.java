@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SubjectServiceImpl implements UserSubjectService {
+public class UserSubjectServiceImpl implements UserSubjectService {
 
     @Autowired
     private UserSubjectDao subjectDao;
 
     @Override
-    public List<Subject> selectAll() {
-        return subjectDao.selectAll();
+    public List<Subject> selectAll(Integer id) {
+        return subjectDao.selectAll(id);
     }
 }

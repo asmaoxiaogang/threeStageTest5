@@ -28,11 +28,7 @@ public class UserController {
     @RequestMapping("loginUser")
     @ResponseBody
     public String loginUser(String email, String password, HttpSession session) {
-        System.out.println("come on loginUser");
-        System.out.println("password: " + password);
-        System.out.println("email: " + email);
         User loginUser = userService.loginUser(email, password);
-        System.out.println("loginUser" + loginUser);
         String data = "";
         if (loginUser != null){
             session.setAttribute("userAccount",loginUser.getEmail());
@@ -41,7 +37,6 @@ public class UserController {
         } else {
             data += "failing";
         }
-        System.out.println("data: " + data);
         return data;
     }
 }

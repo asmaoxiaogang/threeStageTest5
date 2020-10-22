@@ -17,10 +17,12 @@ public class UserSubjectController {
     private UserSubjectService subjectService;
 
     @RequestMapping("selectAll")
-    public String selectAll(Model model) {
-        List<Subject> subjectList = subjectService.selectAll();
+    public String selectAll(Model model, Integer id) {
+        List<Subject> subjectList = subjectService.selectAll(id);
         System.out.println("subjectList" + subjectList);
         model.addAttribute("subjectList", subjectList);
+
+
         return "before/index.jsp";
     }
 }

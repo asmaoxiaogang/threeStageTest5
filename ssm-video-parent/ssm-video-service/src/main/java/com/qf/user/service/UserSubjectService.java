@@ -5,5 +5,5 @@ import com.qf.pojo.Subject;
 import java.util.List;
 
 public interface UserSubjectService {
-    List<Subject> selectAll();
+    List<Subject> selectAll(Integer id);
 }
